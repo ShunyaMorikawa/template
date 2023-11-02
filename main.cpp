@@ -5,15 +5,13 @@
 //
 //========================================
 #include "renderer.h"
-#include "object.h"
-#include "object2D.h"
 #include "manager.h"
 
 //========================================
 //マクロ定義
 //========================================
 #define CLASS_NAME		"WindowClass"		//ウィンドウクラスの名前
-#define WINDOW_NAME		"shoothingaction"	//ウィンドウの名前
+#define WINDOW_NAME		"基盤"				//ウィンドウの名前
 
 //========================================
 //プロトタイプ宣言
@@ -23,8 +21,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 //=======================================
 //グローバル変数
 //=======================================
-int g_nCountFPS = 0;                        //FPSカウンタ
-LPD3DXFONT g_pFont = NULL;                  //フォントへのポインタ
+int g_nCountFPS = 0;		//FPSカウンタ
 
 //========================================
 //メイン関数
@@ -87,14 +84,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine
 		nullptr);						//ウィンドウ作成データ
 
 	//マネージャのポインタ
-	CManager *pManager = nullptr;
+	CManager *pManager = CManager::GetInstance();
 
-	if (pManager == nullptr)
-	{//マネージャ生成
-		pManager = new CManager;
-	}
-
-	if (pManager != nullptr)
 	{//マネージャ初期化
 		pManager->Init(hInstance, hWnd, TRUE);
 	}
@@ -210,7 +201,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 		else
 		{
-			return 0;   //0を返さないと終了してしまう
+			return 0;	//0を返さないと終了してしまう
 		}
 		break;
 	}

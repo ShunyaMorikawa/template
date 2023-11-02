@@ -15,13 +15,6 @@
 //========================================
 //Ã“Iƒƒ“ƒo•Ï”
 //========================================
-CRenderer *CManager::m_pRenderer = nullptr;
-CInputKeyboard *CManager::m_pInputKeyboard = nullptr;
-CInputPad *CManager::m_pInputPad = nullptr;
-CScene *CManager::m_pScene = nullptr;
-CTexture *CManager::m_pTexture = nullptr;
-CDebugProc *CManager::m_pDebugProc = nullptr;
-CCamera *CManager::m_pCamera = nullptr;
 CManager *CManager::m_pManager = nullptr;
 
 //========================================

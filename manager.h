@@ -58,40 +58,42 @@ private:
 //========================================
 class CManager
 {
-public:
+private:	//他の場所でアクセスさせない
 	CManager();		//コンストラクタ
+public:
 	virtual ~CManager();	//デストラクタ
-
+	static CManager *GetInstance();
+public:
 	//メンバ関数
 	HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
-	static CRenderer *GetRenderer(void) { return m_pRenderer; }
-	static CInputKeyboard *GetInputKeyboard(void) { return m_pInputKeyboard; }
-	static CInputPad *GetInputPad(void) { return m_pInputPad; }
-	static CTexture *GetTexture(void) { return m_pTexture; }
-	static CDebugProc *GetDebugProc(void) { return m_pDebugProc; }
-	static void SetMode(CScene::MODE mode);
-	static CScene::MODE GetMode(CScene::MODE nowMode);	//モード取得
-	static CCamera *GetCamera(void) { return m_pCamera; }
-	static CManager *GetInstance();
+	CRenderer *GetRenderer(void) { return m_pRenderer; }
+	CInputKeyboard *GetInputKeyboard(void) { return m_pInputKeyboard; }
+	CInputPad *GetInputPad(void) { return m_pInputPad; }
+	CTexture *GetTexture(void) { return m_pTexture; }
+	CDebugProc *GetDebugProc(void) { return m_pDebugProc; }
+	void SetMode(CScene::MODE mode);
+	CScene::MODE GetMode(CScene::MODE nowMode);	//モード取得
+	CCamera *GetCamera(void) { return m_pCamera; }
 
 private:
+	static CManager *m_pManager;
+
 	//メンバ変数
 	int m_nCnt;		//自動遷移カウンター
 	int m_state;	//状態変更
 	int m_NowScene;	//現在のシーン
-	static CRenderer *m_pRenderer;				//レンダラーのポインタ
-	static CInputKeyboard *m_pInputKeyboard;	//キーボードのポインタ
-	static CInputPad *m_pInputPad;		//コントローラーのポインタ
-	static CScene *m_pScene;			//シーンのポインタ
-	static CDebugProc *m_pDebugProc;	//デバッグ表示のポインタ
-	static CTexture *m_pTexture;		//テクスチャへのポインタ
-	static CGame *m_pGame;				//ゲームマネージャーのポインタ
-	static CCamera *m_pCamera;			//カメラのポインタ
-	static CManager *m_pManager;
+	CRenderer *m_pRenderer;				//レンダラーのポインタ
+	CInputKeyboard *m_pInputKeyboard;	//キーボードのポインタ
+	CInputPad *m_pInputPad;		//コントローラーのポインタ
+	CScene *m_pScene;			//シーンのポインタ
+	CDebugProc *m_pDebugProc;	//デバッグ表示のポインタ
+	CTexture *m_pTexture;		//テクスチャへのポインタ
+	CGame *m_pGame;				//ゲームマネージャーのポインタ
+	CCamera *m_pCamera;			//カメラのポインタ
 };
 
 #endif

@@ -13,10 +13,10 @@
 //========================================
 //コンストラクタ
 //========================================
-CRenderer::CRenderer()
+CRenderer::CRenderer() :
+	m_pD3D(nullptr),		//Direct3Dオブジェクトへのポインタ
+	m_pD3DDevice(nullptr)	//Direct3Dデバイスへのポインタ
 {
-	m_pD3D = nullptr;			//Direct3Dオブジェクトへのポインタ
-	m_pD3DDevice = nullptr;		//Direct3Dデバイスへのポインタ
 }
 
 //========================================
@@ -51,14 +51,14 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	//デバイスのプレゼンテーションパラメータの設定
 	ZeroMemory(&d3dpp, sizeof(d3dpp));  // パラメータのゼロクリア
 
-	d3dpp.BackBufferWidth = SCREEN_WIDTH;                          //ゲーム画面サイズ(幅)
-	d3dpp.BackBufferHeight = SCREEN_HEIGHT;			               //ゲーム画面サイズ(高さ)
-	d3dpp.BackBufferFormat = d3ddm.Format;                         //バックバッファの形式
-	d3dpp.BackBufferCount = 1;                                     //バックバッファの数
-	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;                      //ダブルバッファの切り替え(映像信号に同期)
-	d3dpp.EnableAutoDepthStencil = TRUE;                           //デプスバッファとステンシルバッファを作成
-	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;                   //24ビットZバッファ8ビットステンシルバッファ
-	d3dpp.Windowed = bWindow;                                      //ウィンドウモード
+	d3dpp.BackBufferWidth = SCREEN_WIDTH;				//ゲーム画面サイズ(幅)
+	d3dpp.BackBufferHeight = SCREEN_HEIGHT;				//ゲーム画面サイズ(高さ)
+	d3dpp.BackBufferFormat = d3ddm.Format;				//バックバッファの形式
+	d3dpp.BackBufferCount = 1;							//バックバッファの数
+	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;			//ダブルバッファの切り替え(映像信号に同期)
+	d3dpp.EnableAutoDepthStencil = TRUE;				//デプスバッファとステンシルバッファを作成
+	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;		//24ビットZバッファ8ビットステンシルバッファ
+	d3dpp.Windowed = bWindow;							//ウィンドウモード
 	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
 
@@ -126,23 +126,6 @@ void CRenderer::Draw(void)
 {
 	//画面クリア(バックバッファとZバッファ、ステンシルバッファのクリア)
 	m_pD3DDevice->Clear(0, nullptr, (D3DCLEAR_STENCIL | D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), D3DCOLOR_RGBA(0, 0, 0, 0), 1.0f, 0);
-
-	//ステンシルバッファ有効
-	m_pD3DDevice->SetRenderState(D3DRS_STENCILENABLE, TRUE);
-
-	//ステンシルバッファと比較する参照値の設定 => ref
-	m_pD3DDevice->SetRenderState(D3DRS_STENCILREF, 0x01);
-
-	//ステンシルバッファの値に対してのマスク設定 => 0xff(全て真)
-	m_pD3DDevice->SetRenderState(D3DRS_STENCILMASK, 0xff);
-
-	//ステンシルバッファの比較方法 => (参照値 => ステンシルバッファの参照値)なら合格
-	m_pD3DDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_GREATEREQUAL);
-
-	//ステンシルテスト結果に対しての反映設定
-	m_pD3DDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_REPLACE);
-	m_pD3DDevice->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_KEEP);
-	m_pD3DDevice->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP);
 
 	//描画開始
 	if (SUCCEEDED(m_pD3DDevice->BeginScene()))
