@@ -7,7 +7,6 @@
 #ifndef _INPUT_H_
 #define _INPUT_H_
 
-#include "main.h"
 #define  DIRECTINPUT_VERSION (0x0800)   //ビルド時の警告対処用マクロ
 #include "dinput.h"   //入力処理に必要
 #include "Xinput.h"

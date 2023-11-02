@@ -4,7 +4,6 @@
 //AuthorFXìx–í
 //
 //========================================
-#include "main.h"
 #include "renderer.h"
 #include "object.h"
 #include "object2D.h"

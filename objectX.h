@@ -6,7 +6,6 @@
 //========================================
 #ifndef _OBJECTX_H_
 #define _OBJECTX_H_
-#include "main.h"
 #include "object.h"
 #include <functional>
 

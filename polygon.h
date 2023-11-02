@@ -6,7 +6,6 @@
 //========================================
 #ifndef _POLYGON_H_
 #define _POLYGON_H_
-#include "main.h"
 #include "object3D.h"
 
 //========================================
