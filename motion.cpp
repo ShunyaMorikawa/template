@@ -207,7 +207,7 @@ void CMotion::Draw(void)
 	{//モデルの描画(全パーツ)
  		if (m_ppModel[nCntParts] != nullptr)
 		{//m_apModelがnullptrの時
-			m_ppModel[nCntParts]->Draw();
+//			m_ppModel[nCntParts]->Draw();
 		}
 	}
 }

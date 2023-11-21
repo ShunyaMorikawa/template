@@ -30,14 +30,6 @@ public:
 		TYPE_MAX
 	};
 
-	enum ITEM
-	{//アイテム
-		ITEM_NONE = 0,
-		ITEM_HEAL,		//回復
-		ITEM_BULLET,	//弾
-		ITEM_MAX
-	};
-
 	CObject();				//コンストラクタ
 	virtual ~CObject();		//デストラクタ
 
@@ -63,11 +55,15 @@ protected:
 	void Release(void);
 
 private:
-	static CObject *m_apObject[MAX_DATA];
 	static int m_nNumAll;	//オブジェクト総数
 	int m_nID;				//自分自身のID
 	D3DXVECTOR3 m_pos;		//位置
 	int m_nIdxTexture;		//テクスチャの番号
+
+	CObject *m_Next;	//次
+	CObject *m_Prev;	//前回
+	static CObject *m_Top;		//一番上
+	static CObject *m_Current;	//一番後ろ
 };
 
 #endif
